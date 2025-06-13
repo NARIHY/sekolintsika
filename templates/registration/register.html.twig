@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+
+{% block body %}
+    <div class="container mt-5" style="max-width: 500px;">
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+
+
+
+{{ form_errors(registrationForm) }}
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h5 class="card-title text-center">S'inscrire</h5>
+            </div>
+            <div class="card-body">
+                {{ form_start(registrationForm) }}
+                <div class="mb-3">
+                    {{ form_row(registrationForm.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(registrationForm.prenon, {'attr': {'class': 'form-control', 'placeholder': 'Prénom'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(registrationForm.plainPassword.first, {
+                        label: 'Mot de passe',
+                        attr: {'class': 'form-control', 'placeholder': 'Mot de passe'}
+                    }) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(registrationForm.plainPassword.second, {
+                        label: 'Confirmer le mot de passe',
+                        attr: {'class': 'form-control', 'placeholder': 'Confirmer le mot de passe'}
+                    }) }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ registrationForm.role.vars.id }}" class="form-label fw-bold">
+                        Je suis :
+                    </label>
+                    {{ form_row(registrationForm.role, {
+                        'attr': {
+                            'class': 'form-select',
+                            'id': registrationForm.role.vars.id
+                        }
+                    }) }}
+                </div>
+
+                    <div class="mb-3 d-flex justify-content-center">
+                        <div class="form-check">
+                            {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
