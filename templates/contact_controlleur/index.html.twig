@@ -1,0 +1,538 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact - Sekolintsika | Demande d'Accès{% endblock %}
+
+{% block body %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: #f8f9fa;
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 4rem 0 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .page-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.1"/><circle cx="80" cy="40" r="1.5" fill="white" opacity="0.1"/><circle cx="40" cy="80" r="1" fill="white" opacity="0.1"/></svg>');
+        animation: float 20s infinite linear;
+    }
+
+    @keyframes float {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100px); }
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .page-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        animation: slideInDown 0.8s ease-out;
+    }
+
+    .page-subtitle {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
+        animation: slideInUp 0.8s ease-out 0.2s both;
+    }
+
+    .pricing-alert {
+        background: linear-gradient(45deg, #ff6b6b, #ffa726);
+        color: white;
+        padding: 2rem;
+        margin: 2rem 0;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.2);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        100% { transform: scale(1); }
+    }
+
+    .pricing-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .pricing-details {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+    .pricing-highlight {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 1rem;
+        border-radius: 10px;
+        margin: 1rem 0;
+        font-weight: 600;
+    }
+
+    .main-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        padding: 4rem 0;
+        background: white;
+    }
+
+    .contact-form-section {
+        background: white;
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border: 1px solid rgba(102, 126, 234, 0.1);
+    }
+
+    .section-title {
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        border-radius: 2px;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .form-input, .form-textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #e1e5e9;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .form-select {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #e1e5e9;
+        border-radius: 10px;
+        font-size: 1rem;
+        background: #f8f9fa;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .form-select:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 1.2rem;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .contact-info {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .contact-icon {
+        font-size: 2rem;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+    }
+
+    .contact-details h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .contact-details p {
+        opacity: 0.9;
+        line-height: 1.5;
+    }
+
+    .features-section {
+        background: #f8f9fa;
+        padding: 4rem 0;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .feature-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(102, 126, 234, 0.1);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .feature-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+
+    .feature-description {
+        color: #666;
+        font-size: 0.95rem;
+    }
+
+    .cta-section {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+    }
+
+    .cta-title {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+
+    .cta-description {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        line-height: 1.6;
+    }
+
+    @keyframes slideInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .page-title {
+            font-size: 2.2rem;
+        }
+
+        .main-content {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .pricing-title {
+            font-size: 1.3rem;
+        }
+
+        .pricing-details {
+            font-size: 1rem;
+        }
+
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<!-- En-tête de la page -->
+<section class="page-header">
+    <div class="container">
+        <h1 class="page-title">📞 Contactez-nous</h1>
+        <p class="page-subtitle">
+            Demandez l'accès à Sekolintsika et découvrez notre plateforme éducative innovante
+        </p>
+    </div>
+</section>
+
+<!-- Alerte Tarification -->
+<section class="container">
+    <div class="pricing-alert">
+        <h2 class="pricing-title">
+            🎉 Offre Spéciale de Lancement
+        </h2>
+        <div class="pricing-details">
+            <p>Sekolintsika est actuellement en phase de développement et n'est pas encore ouverte au public.</p>
+
+            <div class="pricing-highlight">
+                ✨ <strong>Première année GRATUITE</strong> pour les premiers utilisateurs !
+            </div>
+
+            <p>
+                Après la période gratuite d'un an, l'abonnement mensuel sera de <strong>200 000 Ar/mois</strong>.
+                <br>
+                Contactez le propriétaire dès maintenant pour réserver votre accès privilégié !
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Contenu principal -->
+<section class="main-content">
+    <div class="container" style="display: contents;">
+        <!-- Formulaire de contact -->
+<div class="contact-form-section">
+    <h2 class="section-title">💬 Demande d'Accès</h2>
+    {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.nomComplet, null, { 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_widget(form.nomComplet, {'attr': {'class': 'form-input'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.email, null, { 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_widget(form.email, {'attr': {'class': 'form-input'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.telephone, null, { 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_widget(form.telephone, {'attr': {'class': 'form-input'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.status, null, { 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_widget(form.status, {'attr': {'class': 'form-select'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.institution, null, { 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_widget(form.institution, {'attr': {'class': 'form-input'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.sujet, null, { 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_widget(form.sujet, {'attr': {'class': 'form-select'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.message, null, { 'label_attr': {'class': 'form-label'} }) }}
+            {{ form_widget(form.message, {'attr': {'class': 'form-textarea', 'placeholder': 'Décrivez votre demande en détail...'}}) }}
+        </div>
+
+        <button type="submit" class="submit-btn">
+            🚀 Envoyer ma demande
+        </button>
+    {{ form_end(form, { 'render_rest': false }) }}
+</div>
+
+
+        <!-- Informations de contact -->
+        <div class="contact-info">
+            <h2 class="section-title" style="color: white;">📋 Informations de Contact</h2>
+
+            <div class="contact-item">
+                <div class="contact-icon">👤</div>
+                <div class="contact-details">
+                    <h3>Propriétaire</h3>
+                    <p>Contactez directement le propriétaire de Sekolintsika pour toute demande d'accès ou d'informations.</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">📧</div>
+                <div class="contact-details">
+                    <h3>Email</h3>
+                    <p>sekolintsika@contact.mg<br>
+                    Réponse sous 24-48h</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">📱</div>
+                <div class="contact-details">
+                    <h3>Téléphone</h3>
+                    <p>+261 XX XX XXX XX<br>
+                    Lun-Ven: 8h-17h</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">🌍</div>
+                <div class="contact-details">
+                    <h3>Localisation</h3>
+                    <p>Antananarivo, Madagascar<br>
+                    Disponible dans tout Madagascar</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Fonctionnalités -->
+<section class="features-section">
+    <div class="container">
+        <h2 class="section-title">🎯 Pourquoi Choisir Sekolintsika ?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">🎓</span>
+                <h3 class="feature-title">Plateforme Complète</h3>
+                <p class="feature-description">
+                    Tous les niveaux : lycée, université, formation professionnelle
+                </p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">💰</span>
+                <h3 class="feature-title">Première Année Gratuite</h3>
+                <p class="feature-description">
+                    Profitez d'un accès complet gratuit pendant 12 mois
+                </p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📚</span>
+                <h3 class="feature-title">Contenu de Qualité</h3>
+                <p class="feature-description">
+                    Cours créés par des experts pédagogiques reconnus
+                </p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🔐</span>
+                <h3 class="feature-title">Accès Exclusif</h3>
+                <p class="feature-description">
+                    Plateforme privée - accès sur demande uniquement
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Call-to-Action -->
+<section class="cta-section">
+    <div class="container">
+        <h2 class="cta-title">🚀 Réservez Votre Place Maintenant</h2>
+        <p class="cta-description">
+            Les places pour l'accès gratuit de la première année sont limitées.
+            Contactez-nous dès aujourd'hui pour sécuriser votre accès privilégié à Sekolintsika !
+        </p>
+    </div>
+</section>
+
+{% endblock %}
