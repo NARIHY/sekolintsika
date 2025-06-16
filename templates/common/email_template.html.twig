@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Sekolintsika</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .email-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .email-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4CAF50, #2196F3, #FF9800, #E91E63);
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-section::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid #34495e;
+        }
+
+        .logo-section {
+            margin-bottom: 15px;
+        }
+
+        .logo-icon {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #4CAF50, #2196F3);
+            border-radius: 50%;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .logo-icon::before {
+            content: '🎓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .tagline {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .email-info {
+            background: #f8f9fa;
+            padding: 25px 30px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 8px 0;
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .icon-from {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .icon-to {
+            background: #e8f5e8;
+            color: #4caf50;
+        }
+
+        .icon-subject {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #2c3e50;
+            min-width: 100px;
+            font-size: 14px;
+        }
+
+        .info-value {
+            color: #555;
+            font-size: 14px;
+            flex: 1;
+        }
+
+        .content-section {
+            padding: 30px;
+            background: #ffffff;
+        }
+
+        .content-section h1,
+        .content-section h2,
+        .content-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .content-section p {
+            color: #555;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .content-section ul,
+        .content-section ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content-section li {
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .highlight-box h3 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            margin: 10px 0;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .footer-section {
+            background: #2c3e50;
+            color: #bdc3c7;
+            padding: 25px 30px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #4CAF50, transparent);
+            margin: 15px 0;
+        }
+
+        .footer-links {
+            margin-top: 15px;
+        }
+
+        .footer-links a {
+            color: #4CAF50;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer-links a:hover {
+            color: #66BB6A;
+        }
+
+        .educational-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .email-wrapper {
+                border-radius: 8px;
+            }
+
+            .header-section,
+            .email-info,
+            .content-section,
+            .footer-section {
+                padding: 20px;
+            }
+
+            .info-row {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+
+            .info-label {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <!-- En-tête avec logo et branding -->
+        <div class="header-section">
+            <div class="logo-section">
+                <div class="logo-icon"></div>
+                <h1 class="brand-name">Sekolintsika</h1>
+                <p class="tagline">Plateforme Éducative d'Excellence</p>
+            </div>
+            <div class="educational-badge">📚 Éducation Numérique</div>
+        </div>
+
+        <!-- Informations de l'email -->
+        <div class="email-info">
+            <div class="info-row">
+                <div class="info-icon icon-from">📤</div>
+                <span class="info-label">Expéditeur:</span>
+                <span class="info-value">{{ expediteur }}</span>
+            </div>
+            <div class="info-row">
+                <div class="info-icon icon-to">📥</div>
+                <span class="info-label">Destinataire:</span>
+                <span class="info-value">{{ destinataire }}</span>
+            </div>
+            <div class="info-row">
+                <div class="info-icon icon-subject">📋</div>
+                <span class="info-label">Sujet:</span>
+                <span class="info-value">{{ sujet }}</span>
+            </div>
+        </div>
+
+        <!-- Contenu principal -->
+        <div class="content-section">
+            {{ contenu|raw }}
+
+            <!-- Exemple de contenu éducatif stylé -->
+            <div class="highlight-box">
+                <h3>🎓 Découvrez Sekolintsika</h3>
+                <p>Sekolintsika est une plateforme éducative innovante dédiée à l'apprentissage interactif et à la réussite de chaque élève. Profitez de ressources pédagogiques variées, de cours en ligne et d'un accompagnement personnalisé pour atteindre vos objectifs scolaires.</p>
+                <a href="#" class="cta-button">Explorer les cours</a>
+            </div>
+        </div>
+
+        <!-- Pied de page -->
+        <div class="footer-section">
+            <p><strong>Sekolintsika</strong> - Votre partenaire éducatif de confiance</p>
+            <div class="footer-divider"></div>
+            <p>Cet email a été généré automatiquement par notre système éducatif.</p>
+            <p>© 2025 Sekolintsika. Tous droits réservés.</p>
+
+            <div class="footer-links">
+                <a href="#">Aide</a> |
+                <a href="#">Contact</a> |
+                <a href="#">Politique de confidentialité</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
