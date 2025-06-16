@@ -23,12 +23,16 @@ final class ContactControlleur extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $demande->setDateSoumission(new \DateTime());
             $em->persist($demande);
             $em->flush();
 
             $this->addFlash('success', '✅ Votre demande a été envoyée avec succès !');
-
             return $this->redirectToRoute('app_public_contact');
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', '❌ Veuillez corriger les erreurs dans le formulaire.');
         }
 
         return $this->render('contact_controlleur/index.html.twig', [

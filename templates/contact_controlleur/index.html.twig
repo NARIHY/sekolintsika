@@ -402,7 +402,7 @@
         <!-- Formulaire de contact -->
 <div class="contact-form-section">
     <h2 class="section-title">💬 Demande d'Accès</h2>
-    {{ form_start(form) }}
+    {{ form_start(form, { 'action': path('app_public_contact') }) }}
         <div class="form-group">
             {{ form_label(form.nomComplet, null, { 'label_attr': {'class': 'form-label'} }) }}
             {{ form_widget(form.nomComplet, {'attr': {'class': 'form-input'}}) }}
@@ -438,10 +438,21 @@
             {{ form_widget(form.message, {'attr': {'class': 'form-textarea', 'placeholder': 'Décrivez votre demande en détail...'}}) }}
         </div>
 
-        <button type="submit" class="submit-btn">
-            🚀 Envoyer ma demande
-        </button>
-    {{ form_end(form, { 'render_rest': false }) }}
+        {{ form_widget(form.save, {'attr': {'class': 'submit-btn'}}) }}
+    {{ form_end(form)}}
+
+    <!-- Add flash -->
+
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+            <div class="alert alert-{{ label == 'success' ? 'success' : (label == 'error' ? 'danger' : (label == 'warning' ? 'warning' : 'info')) }} alert-dismissible fade show" role="alert" style="padding: 1rem 1.5rem; margin-top: 1.5rem;">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        {% endfor %}
+
+    <!-- End add flash -->
 </div>
 
 

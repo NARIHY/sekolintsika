@@ -61,7 +61,7 @@ class DemandeAccesTypeForm extends AbstractType
                 'required' => true,
                 'attr' => ['placeholder' => 'Décrivez votre demande en détail...']
             ])
-            ->add('submit', SubmitType::class, [
+            ->add('save', SubmitType::class, [
                 'label' => '🚀 Envoyer ma demande'
             ])
         ;
