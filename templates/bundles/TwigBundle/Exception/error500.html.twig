@@ -1,0 +1,12 @@
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Page non trouvée - 404{% endblock %}
+
+{% block body %}
+    <div class="error-page">
+        <h1>Erreur 500</h1>
+        <p>Désolé, une erreur interne est survenue.</p>
+        <a href="{{ path('app_home') }}">Retour à l'accueil</a>
+    </div>
+{% endblock %}

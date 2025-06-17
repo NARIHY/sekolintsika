@@ -61,6 +61,9 @@
             <li class="nav-item">
                 <a class="nav-link{% if app.request.attributes.get('_route') == 'app_public_contact' %} active{% endif %}" href="{{path('app_public_contact')}}">Contact</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link{% if app.request.attributes.get('_route') == 'app_register' %} active{% endif %}" href="{{ path('app_register') }}">Inscription</a>
+            </li>
             <!-- Plus de liens ici -->
             </ul>
         </div>
